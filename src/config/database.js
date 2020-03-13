@@ -1,21 +1,23 @@
-/* eslint-disable no-console */
-
-import mongoose from 'mongoose';
-
-import constants from './constants';
+import mongoose from "mongoose";
+import constants from "./constants";
 
 // Remove the warning with Promise
 mongoose.Promise = global.Promise;
 
 // Connect the db with the url provide
 try {
-  mongoose.connect(constants.MONGO_URL);
+  mongoose.connect(constants.MONGO_URL, {
+    useNewUrlParser: true,
+    useFindAndModify: false,
+    useCreateIndex: true,
+    useUnifiedTopology: true
+  });
 } catch (err) {
   mongoose.createConnection(constants.MONGO_URL);
 }
 
 mongoose.connection
-  .once('open', () => console.log('MongoDB Running'))
-  .on('error', e => {
+  .once("open", () => console.log("MongoDB Running"))
+  .on("error", e => {
     throw e;
   });

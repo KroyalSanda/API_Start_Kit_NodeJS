@@ -1,18 +1,17 @@
-/* eslint-disable no-console */
-
-import express from 'express';
-
-import constants from './config/constants';
-import './config/database';
-import middlewaresConfig from './config/middlewares';
-import apiRoutes from './modules';
+import express from "express";
+import constants from "./config/constants";
+import "./config/database";
+import middlewaresConfig from "./config/middlewares";
+import apiRoutes from "./modules";
+import "dotenv/config";
 
 const app = express();
+app.use(express.static("public"));
 
 middlewaresConfig(app);
 
-app.get('/', (req, res) => {
-  res.send('Hello world!');
+app.get("/", (req, res) => {
+  res.send("Hello world!");
 });
 
 apiRoutes(app);
